@@ -1,1 +1,5 @@
-STREAMLIT : Version 1.28.0
+pandas==1.5.3
+st_gsheets_connection==0.0.3
+streamlit==1.29.0
+streamlit_image_select==0.6.0
+~treamlit==1.28.0

@@ -2,7 +2,7 @@ import pandas as pd
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 from streamlit_image_select import image_select
-
+import openpyxl
 
 #Questo 
 

@@ -1,1 +1,1 @@
-STREAMLIT : Version 1.28.0
+STREAMLIT : Version 1.29.0

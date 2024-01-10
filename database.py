@@ -57,35 +57,6 @@ if st.sidebar.button("Invia Email"):
     else:
         st.sidebar.error("Email non valida. Verifica l'email inserita.")
 
-'''
-# Carica i dati
-file_path = "lista_email.xlsx"
-df = pd.read_excel(file_path)
-
-def authenticate(email, password):
-    # Verifica se esiste una riga con l'email e la password fornite
-    return not df[(df['Lista'] == email) & (df['Password'] == password)].empty
-
-# Creazione della colonna per il logo nella sidebar
-sidebar_col = st.sidebar.image(logo, use_column_width=True)
-
-# Campi di input per email e password nella sidebar
-email = st.sidebar.text_input("Email:")
-password = st.sidebar.text_input("Password:", type="password")
-
-# Bottone di accesso nella sidebar
-if st.sidebar.button("Login"):
-    # Controllo di autenticazione
-    if authenticate(email, password):
-        st.sidebar.success("Accesso riuscito!")
-        st.success(f"benvenut*{email}")
-        is_aut = True
-        # Qui puoi aggiungere ulteriori sezioni del tuo codice per il contenuto principale
-    else:
-        st.sidebar.error("Accesso fallito. Verifica email e password.")
-
-'''
-
 conn = st.connection("gsheets", type=GSheetsConnection)
 
 # Lettura dei dati esistenti da Google Sheets
@@ -160,17 +131,14 @@ giocatori = [
 #agg nome su 
 
 def seleziona_giocatori():
-
-    #team_options = [ "", "BD", "Audit", "Marketing"]
-    #selected_team = st.selectbox("Selezione l'area", options=team_options, index=None)
-
-
-    #mandato_options = ["", "Mandato I", "Mandato II "]
     giocatori_selezionati = []
     crediti_totali = 0
     numeri = 0 
+    # Initialize a counter for unique keys
+    widget_counter = 0
+
     while crediti_totali < 20:
-        giocatore_scelto = st.selectbox("Seleziona un giocatore:", [g["nome"] for g in giocatori], key=crediti_totali)
+        giocatore_scelto = st.selectbox("Seleziona un giocatore:", [g["nome"] for g in giocatori], key=f"giocatore_select_{widget_counter}", index=None)
 
         for giocatore in giocatori:
             if giocatore["nome"] == giocatore_scelto:
@@ -181,16 +149,26 @@ def seleziona_giocatori():
 
         st.write(f"Hai ancora {20-crediti_totali} Crediti ")
 
-        if crediti_totali <= 20:
-            continua_selezione = st.checkbox("Vuoi selezionare un altro giocatore?", key=crediti_totali +1 )
-            if continua_selezione:
-                numeri += 1
-            if not continua_selezione:
-                break
+        # Creazione di una variabile che cambia ogni volta che il checkbox viene premuto
+        continua_selezione = st.checkbox("Vuoi selezionare un altro giocatore?", key=f"continua_selezione_{widget_counter + 1}")
 
-    st.sidebar.write("Il tuo Team:")
+        if continua_selezione:
+            numeri += 1
+
+        # Increment the widget counter to ensure unique keys
+        widget_counter += 1
+
+        if not continua_selezione:
+            break
+
+
+         
+
+
+               
+    st.write("Il tuo Team:")
     for giocatore in giocatori_selezionati:
-        st.sidebar.write(f"- {giocatore['nome']} ")
+        st.write(f"- {giocatore['nome']}")
 
     submit_button = st.button("Aggiorna il team")
 
@@ -210,7 +188,6 @@ def seleziona_giocatori():
             st.success("Foglio di Google Sheets aggiornato con successo!")
         else:
             st.warning("I giocatori selezionati hanno un costo maggiore di quanto puoi spendere")
-
 
 
 

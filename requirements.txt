@@ -1,6 +1,6 @@
 pandas==1.5.3
 st_gsheets_connection==0.0.3
 streamlit==1.29.0
-
+path==16.9.0
 openpyxl==3.0.2
 Streamlit==1.29.0

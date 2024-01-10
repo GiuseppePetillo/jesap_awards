@@ -32,16 +32,6 @@ logo = "logo.png"
 # Controllo IF
 is_aut = False
 is_somma_valori = False
-'''
-# Carica i dati
-file_path = "lista_email.xlsx"
-df = pd.read_excel(file_path)
-
-# Funzione di autenticazione
-def authenticate(email):
-    # Verifica se l'email fornita è presente nel DataFrame
-    return email in df['Lista'].values
-'''
 # Creazione della colonna per il logo nella sidebar
 sidebar_col = st.sidebar.image(logo, use_column_width=True)
 

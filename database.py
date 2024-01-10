@@ -37,6 +37,31 @@ is_somma_valori = False
 file_path = "lista_email.xlsx"
 df = pd.read_excel(file_path)
 
+# Funzione di autenticazione
+def authenticate(email):
+    # Verifica se l'email fornita è presente nel DataFrame
+    return email in df['Lista'].values
+
+# Creazione della colonna per il logo nella sidebar
+sidebar_col = st.sidebar.image(logo, use_column_width=True)
+
+# Campo di input per l'email nella sidebar
+email = st.sidebar.text_input("Email:")
+
+# Bottone di accesso nella sidebar
+if st.sidebar.button("Invia Email"):
+    # Controllo di autenticazione
+    if authenticate(email):
+        st.sidebar.success(f"Benvenut {email}")
+        # Puoi aggiungere ulteriori azioni qui dopo l'invio dell'email
+    else:
+        st.sidebar.error("Email non valida. Verifica l'email inserita.")
+
+'''
+# Carica i dati
+file_path = "lista_email.xlsx"
+df = pd.read_excel(file_path)
+
 def authenticate(email, password):
     # Verifica se esiste una riga con l'email e la password fornite
     return not df[(df['Lista'] == email) & (df['Password'] == password)].empty
@@ -59,7 +84,7 @@ if st.sidebar.button("Login"):
     else:
         st.sidebar.error("Accesso fallito. Verifica email e password.")
 
-
+'''
 
 conn = st.connection("gsheets", type=GSheetsConnection)
 

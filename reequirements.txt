@@ -1,6 +1,0 @@
-pandas==1.5.3
-st_gsheets_connection==0.0.3
-streamlit==1.29.0
-
-
-

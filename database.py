@@ -128,9 +128,10 @@ def seleziona_giocatori():
     widget_counter = 0
 
     while crediti_totali < 20:
-        giocatore_scelto = st.selectbox("Seleziona un giocatore:", [g["nome"] for g in giocatori], key=f"giocatore_select_{widget_counter}", index=None)
+        giocatori_disponibili = [g for g in giocatori if g["crediti"] <= (20 - crediti_totali)]
+        giocatore_scelto = st.selectbox("Seleziona un giocatore:", [g["nome"] for g in giocatori_disponibili], key=f"giocatore_select_{widget_counter}", index=None)
 
-        for giocatore in giocatori:
+        for giocatore in giocatori_disponibili:
             if giocatore["nome"] == giocatore_scelto:
                 crediti_totali += giocatore["crediti"]
                 giocatori_selezionati.append(giocatore)
@@ -151,11 +152,6 @@ def seleziona_giocatori():
         if not continua_selezione:
             break
 
-
-         
-
-
-               
     st.write("Il tuo Team:")
     for giocatore in giocatori_selezionati:
         st.write(f"- {giocatore['nome']}")
@@ -166,7 +162,7 @@ def seleziona_giocatori():
         # Ottieni l'indice della riga corrispondente all'email fornita
         index_to_update = existing_data[existing_data['Email'] == email].index
 
-        if crediti_totali < 20:
+        if crediti_totali <= 20:
             # Ottieni i nomi dei giocatori selezionati come una lista di stringhe
             giocatori_selezionati_nomi = [giocatore["nome"] for giocatore in giocatori_selezionati]
             # Converti la lista di nomi in una stringa separata da virgole
@@ -178,6 +174,7 @@ def seleziona_giocatori():
             st.success("Foglio di Google Sheets aggiornato con successo!")
         else:
             st.warning("I giocatori selezionati hanno un costo maggiore di quanto puoi spendere")
+
 
 
 

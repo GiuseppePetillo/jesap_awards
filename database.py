@@ -120,6 +120,7 @@ giocatori = [
 #agg nome su 
 
 def seleziona_giocatori():
+    
     st.title("FantaJesaper")
     giocatori_selezionati = []
     crediti_totali = 0

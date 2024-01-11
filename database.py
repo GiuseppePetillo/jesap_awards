@@ -44,7 +44,7 @@ if st.sidebar.button("Accedi"):
         is_aut = True
        
 else:
-     st.sidebar.warning("Inserire Email ") 
+     st.warning("Inserire Email ") 
     
 
 conn = st.connection("gsheets", type=GSheetsConnection)

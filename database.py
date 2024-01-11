@@ -42,6 +42,7 @@ email = st.sidebar.text_input("Email:")
 if st.sidebar.button("Accedi"):
         st.sidebar.success(f"Benvenut {email}")
         is_aut = True
+       
 else:
      st.sidebar.warning("Inserire Email ") 
     
@@ -125,7 +126,7 @@ def seleziona_giocatori():
     giocatori_selezionati = []
     crediti_totali = 0
     numeri = 0 
-    # Initialize a counter for unique keys
+    
     widget_counter = 0
 
     while crediti_totali < 20:
@@ -147,7 +148,7 @@ def seleziona_giocatori():
         if continua_selezione:
             numeri += 1
 
-        # Increment the widget counter to ensure unique keys
+        #Aumento 
         widget_counter += 1
 
         if not continua_selezione:

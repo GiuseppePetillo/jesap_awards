@@ -9,16 +9,16 @@ from streamlit_gsheets import GSheetsConnection
 st.set_page_config(page_icon="logo.png")
 
 
-background_image = """
+background_image = '''
 <style>
 [data-testid="stAppViewContainer"] > .main {
-    background-image: url("https://unsplash.com/it/foto/cielo-blu-con-sole-giallo-UXUYv_yp9QU");
+    background-image: url("");
     background-size: 100vw 100vh;  
     background-position: center;  
     background-repeat: no-repeat;
 }
 </style>
-"""
+'''
 
 
 st.markdown(background_image, unsafe_allow_html=True)
@@ -28,7 +28,7 @@ st.markdown(background_image, unsafe_allow_html=True)
 
 
 
-logo = "logo.png"
+logo = "logo2.png"
 # Controllo IF
 is_aut = False
 is_somma_valori = False
@@ -39,11 +39,11 @@ sidebar_col = st.sidebar.image(logo, use_column_width=True)
 email = st.sidebar.text_input("Email:")
 
 # Bottone di accesso nella sidebar
-if st.sidebar.button("Invia Email"):
-    # Controllo di autenticazione
-    #if authenticate(email):
+if st.sidebar.button("Accedi"):
         st.sidebar.success(f"Benvenut {email}")
-        # Puoi aggiungere ulteriori azioni qui dopo l'invio dell'email
+        is_aut = True
+else:
+     st.sidebar.warning("Inserire Email ") 
     
 
 conn = st.connection("gsheets", type=GSheetsConnection)
@@ -120,6 +120,7 @@ giocatori = [
 #agg nome su 
 
 def seleziona_giocatori():
+    st.title("FantaJesaper")
     giocatori_selezionati = []
     crediti_totali = 0
     numeri = 0 
@@ -180,8 +181,7 @@ def seleziona_giocatori():
 
 
 
-def main():
-    st.title("FantaJesaper")
+def main(): 
 
     seleziona_giocatori()
     

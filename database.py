@@ -23,10 +23,6 @@ background_image = '''
 
 st.markdown(background_image, unsafe_allow_html=True)
 
-#Viola scuro
-#7a5ea8
-
-
 
 logo = "logo2.png"
 # Controllo IF
@@ -43,9 +39,10 @@ if st.sidebar.button("Accedi"):
         st.sidebar.success(f"Benvenut {email}")
         is_aut = True
        
-else:
+elif not is_aut:
      st.warning("Inserire Email ") 
-    
+
+
 
 conn = st.connection("gsheets", type=GSheetsConnection)
 

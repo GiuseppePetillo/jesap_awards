@@ -116,9 +116,9 @@ email = st.text_input("Email:")
 # Bottone di accesso nella sidebar
 
 if email and  email in  existing_data.values:
-        #st.success(f"Benvenut {email}")
-        is_aut = True
-        st.title("FantaJesaper")
+    st.success(f"Benvenut {email}")
+    is_aut = True
+    st.title("FantaJesaper")
     giocatori_selezionati = []
     crediti_totali = 0
     numeri = 0 

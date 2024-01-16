@@ -142,7 +142,7 @@ def seleziona_giocatori():
     
     widget_counter = 0
 
-    while crediti_totali < 25:
+    while crediti_totali <= 25:
         giocatori_disponibili = [g for g in giocatori if g["crediti"] <= (20 - crediti_totali)]
         giocatore_scelto = st.selectbox("Seleziona un giocatore:", [g["nome"] for g in giocatori_disponibili], key=f"giocatore_select_{widget_counter}", index=None)
 
@@ -191,7 +191,7 @@ def seleziona_giocatori():
             # Converti la lista di nomi in una stringa separata da virgole
             giocatori_selezionati_stringa = ", ".join(giocatori_selezionati_nomi)
 
-            # Aggiorna solo la colonna "Giocatore II" della riga corrispondente
+            # Aggiorna solo la colonna "Giocatore I" della riga corrispondente
             existing_data.loc[index_to_update, "Giocatore I "] = giocatori_selezionati_stringa
             conn.update(worksheet="Foglio1", data=existing_data)
             st.success("Foglio di Google Sheets aggiornato con successo!")

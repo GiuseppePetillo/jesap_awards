@@ -22,44 +22,6 @@ background_image = '''
 '''
 
 
-st.markdown(background_image, unsafe_allow_html=True)
-
-
-conn = st.connection("gsheets", type=GSheetsConnection)
-
-# Lettura dei dati esistenti da Google Sheets
-existing_data = conn.read(worksheet="Foglio1", usecols=list(range(4)), ttl=5)
-existing_data = existing_data.dropna(how="all")
-
-logo = "logo2.png"
-# Controllo IF
-
-is_somma_valori = False
-# Creazione della colonna per il logo nella sidebar
-sidebar_col = st.sidebar.image(logo, use_column_width=True)
-
-is_aut = False
-
-
- # Campo di input per l'email nella sidebar
-email = st.sidebar.text_input("Email:")
-
-# Bottone di accesso nella sidebar
-if st.sidebar.button("Accedi"):
-    if email in existing_data.values:
-        st.sidebar.success(f"Benvenut {email}")
-        is_aut = True
-        
-    else:
-        st.warning("Email non valida, inserire un'email presente nel foglio Google Sheet") 
-         
-else:
-    st.warning("Inserire Email ")
-    
-
-
-
-
 giocatori = [
     {"nome": "Alessandro Belotti (5 crediti)", "crediti": 5, "foto": 'alessandro_belotti.jpg'},
     {"nome": "Alessia Fiasca (5 crediti)", "crediti": 5, "foto": 'alessia_fiasca.jpg'},
@@ -129,20 +91,41 @@ giocatori = [
 ]
 
 
-
-#agg nome su 
-
-def seleziona_giocatori():
+st.markdown(background_image, unsafe_allow_html=True)
 
 
-    st.title("FantaJesaper")
-    giocatori_selezionati = []
-    crediti_totali = 0
-    numeri = 0 
+conn = st.connection("gsheets", type=GSheetsConnection)
+
+# Lettura dei dati esistenti da Google Sheets
+existing_data = conn.read(worksheet="Foglio1", usecols=list(range(4)), ttl=5)
+existing_data = existing_data.dropna(how="all")
+
+logo = "logo2.png"
+# Controllo IF
+
+is_somma_valori = False
+# Creazione della colonna per il logo nella sidebar
+sidebar_col = st.sidebar.image(logo, use_column_width=True)
+
+is_aut = False
+
+
+ # Campo di input per l'email nella sidebar
+email = st.sidebar.text_input("Email:")
+
+# Bottone di accesso nella sidebar
+
+if email and  email in  existing_data.values:
+        st.sidebar.success(f"Benvenut {email}")
+        is_aut = True
+        st.title("FantaJesaper")
+giocatori_selezionati = []
+crediti_totali = 0
+numeri = 0 
     
-    widget_counter = 0
+widget_counter = 0
 
-    while crediti_totali <= 25:
+while crediti_totali <= 25:
         giocatori_disponibili = [g for g in giocatori if g["crediti"] <= (25 - crediti_totali)]
         giocatore_scelto = st.selectbox("Seleziona un giocatore:", [g["nome"] for g in giocatori_disponibili], key=f"giocatore_select_{widget_counter}", index=None)
 
@@ -173,14 +156,14 @@ def seleziona_giocatori():
         if not continua_selezione:
             break
 
-    st.markdown("<h2>Il tuo Team:</h2>", unsafe_allow_html=True)
+st.markdown("<h2>Il tuo Team:</h2>", unsafe_allow_html=True)
 
-    for giocatore in giocatori_selezionati:
+for giocatore in giocatori_selezionati:
         st.write(f"- {giocatore['nome']}")
 
-    submit_button = st.button("Aggiorna il team")
+submit_button = st.button("Aggiorna il team")
 
-    if submit_button :
+if submit_button :
         # Ottieni l'indice della riga corrispondente all'email fornita
         index_to_update = existing_data[existing_data['Email'] == email].index
         st.write(index_to_update)
@@ -197,15 +180,27 @@ def seleziona_giocatori():
             st.success("Foglio di Google Sheets aggiornato con successo!")
         else:
             st.warning("I giocatori selezionati hanno un costo maggiore di quanto puoi spendere")
+        
+else:
+        st.warning("Email non valida, inserire un'email presente nel foglio Google Sheet") 
+         
 
-
-
-
-def main(): 
-    seleziona_giocatori()
     
 
-if __name__ == "__main__":
-    main()
+
+
+
+
+
+#agg nome su 
+
+
+
+
+    
+
+
+
+
 
 

@@ -111,12 +111,12 @@ is_aut = False
 
 
  # Campo di input per l'email nella sidebar
-email = st.sidebar.text_input("Email:")
+email = st.text_input("Email:")
 
 # Bottone di accesso nella sidebar
 
 if email and  email in  existing_data.values:
-        st.sidebar.success(f"Benvenut {email}")
+        st.success(f"Benvenut {email}")
         is_aut = True
         st.title("FantaJesaper")
 giocatori_selezionati = []

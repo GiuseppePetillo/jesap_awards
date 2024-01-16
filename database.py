@@ -181,7 +181,7 @@ if email and  email in  existing_data.values:
             else:
                 st.warning("I giocatori selezionati hanno un costo maggiore di quanto puoi spendere")
             
-    else:
+else:
             st.warning("Email non valida, inserire un'email presente nel foglio Google Sheet") 
          
 

@@ -143,7 +143,7 @@ def seleziona_giocatori():
     widget_counter = 0
 
     while crediti_totali <= 25:
-        giocatori_disponibili = [g for g in giocatori if g["crediti"] <= (20 - crediti_totali)]
+        giocatori_disponibili = [g for g in giocatori if g["crediti"] <= (25 - crediti_totali)]
         giocatore_scelto = st.selectbox("Seleziona un giocatore:", [g["nome"] for g in giocatori_disponibili], key=f"giocatore_select_{widget_counter}", index=None)
 
         for giocatore in giocatori_disponibili:

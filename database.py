@@ -116,73 +116,73 @@ email = st.text_input("Email:")
 # Bottone di accesso nella sidebar
 
 if email and  email in  existing_data.values:
-        st.success(f"Benvenut {email}")
+        #st.success(f"Benvenut {email}")
         is_aut = True
         st.title("FantaJesaper")
-giocatori_selezionati = []
-crediti_totali = 0
-numeri = 0 
-    
-widget_counter = 0
+    giocatori_selezionati = []
+    crediti_totali = 0
+    numeri = 0 
+        
+    widget_counter = 0
 
-while crediti_totali <= 25:
-        giocatori_disponibili = [g for g in giocatori if g["crediti"] <= (25 - crediti_totali)]
-        giocatore_scelto = st.selectbox("Seleziona un giocatore:", [g["nome"] for g in giocatori_disponibili], key=f"giocatore_select_{widget_counter}", index=None)
+    while crediti_totali <= 25:
+            giocatori_disponibili = [g for g in giocatori if g["crediti"] <= (25 - crediti_totali)]
+            giocatore_scelto = st.selectbox("Seleziona un giocatore:", [g["nome"] for g in giocatori_disponibili], key=f"giocatore_select_{widget_counter}", index=None)
 
-        for giocatore in giocatori_disponibili:
-            if giocatore["nome"] == giocatore_scelto:
-                crediti_totali += giocatore["crediti"]
-                giocatori_selezionati.append(giocatore)
-                giocatori.remove(giocatore)
+            for giocatore in giocatori_disponibili:
+                if giocatore["nome"] == giocatore_scelto:
+                    crediti_totali += giocatore["crediti"]
+                    giocatori_selezionati.append(giocatore)
+                    giocatori.remove(giocatore)
 
-                # Display the player's image
-                player_photo_path = f"photos/{giocatore['foto']}" 
-                if(giocatore['foto'] in os.listdir("photos")):
-                    st.image(player_photo_path, caption=giocatore["nome"], use_column_width=False, width=200)
-                
+                    # Display the player's image
+                    player_photo_path = f"photos/{giocatore['foto']}" 
+                    if(giocatore['foto'] in os.listdir("photos")):
+                        st.image(player_photo_path, caption=giocatore["nome"], use_column_width=False, width=200)
+                    
+                    break
+
+            st.write(f"Hai ancora {25-crediti_totali} Crediti ")
+
+            # Creazione di una variabile che cambia ogni volta che il checkbox viene premuto
+            continua_selezione = st.checkbox("Vuoi selezionare un altro giocatore?", key=f"continua_selezione_{widget_counter + 1}")
+
+            if continua_selezione:
+                numeri += 1
+
+            #Aumento 
+            widget_counter += 1
+
+            if not continua_selezione:
                 break
 
-        st.write(f"Hai ancora {25-crediti_totali} Crediti ")
+    st.markdown("<h2>Il tuo Team:</h2>", unsafe_allow_html=True)
 
-        # Creazione di una variabile che cambia ogni volta che il checkbox viene premuto
-        continua_selezione = st.checkbox("Vuoi selezionare un altro giocatore?", key=f"continua_selezione_{widget_counter + 1}")
+    for giocatore in giocatori_selezionati:
+            st.write(f"- {giocatore['nome']}")
 
-        if continua_selezione:
-            numeri += 1
+    submit_button = st.button("Aggiorna il team")
 
-        #Aumento 
-        widget_counter += 1
+    if submit_button :
+            # Ottieni l'indice della riga corrispondente all'email fornita
+            index_to_update = existing_data[existing_data['Email'] == email].index
+            st.write(index_to_update)
 
-        if not continua_selezione:
-            break
+            if crediti_totali <= 20:
+                # Ottieni i nomi dei giocatori selezionati come una lista di stringhe
+                giocatori_selezionati_nomi = [giocatore["nome"] for giocatore in giocatori_selezionati]
+                # Converti la lista di nomi in una stringa separata da virgole
+                giocatori_selezionati_stringa = ", ".join(giocatori_selezionati_nomi)
 
-st.markdown("<h2>Il tuo Team:</h2>", unsafe_allow_html=True)
-
-for giocatore in giocatori_selezionati:
-        st.write(f"- {giocatore['nome']}")
-
-submit_button = st.button("Aggiorna il team")
-
-if submit_button :
-        # Ottieni l'indice della riga corrispondente all'email fornita
-        index_to_update = existing_data[existing_data['Email'] == email].index
-        st.write(index_to_update)
-
-        if crediti_totali <= 20:
-            # Ottieni i nomi dei giocatori selezionati come una lista di stringhe
-            giocatori_selezionati_nomi = [giocatore["nome"] for giocatore in giocatori_selezionati]
-            # Converti la lista di nomi in una stringa separata da virgole
-            giocatori_selezionati_stringa = ", ".join(giocatori_selezionati_nomi)
-
-            # Aggiorna solo la colonna "Giocatore I" della riga corrispondente
-            existing_data.loc[index_to_update, "Giocatore I "] = giocatori_selezionati_stringa
-            conn.update(worksheet="Foglio1", data=existing_data)
-            st.success("Foglio di Google Sheets aggiornato con successo!")
-        else:
-            st.warning("I giocatori selezionati hanno un costo maggiore di quanto puoi spendere")
-        
-else:
-        st.warning("Email non valida, inserire un'email presente nel foglio Google Sheet") 
+                # Aggiorna solo la colonna "Giocatore I" della riga corrispondente
+                existing_data.loc[index_to_update, "Giocatore I "] = giocatori_selezionati_stringa
+                conn.update(worksheet="Foglio1", data=existing_data)
+                st.success("Foglio di Google Sheets aggiornato con successo!")
+            else:
+                st.warning("I giocatori selezionati hanno un costo maggiore di quanto puoi spendere")
+            
+    else:
+            st.warning("Email non valida, inserire un'email presente nel foglio Google Sheet") 
          
 
     

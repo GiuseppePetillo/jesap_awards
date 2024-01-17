@@ -100,14 +100,25 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 existing_data = conn.read(worksheet="Foglio1", usecols=list(range(4)), ttl=5)
 existing_data = existing_data.dropna(how="all")
 
-logo = "logo2.png"
-# Controllo IF
 
+logo = "logo2.png"
 is_somma_valori = False
-# Creazione della colonna per il logo nella sidebar
-sidebar_col = st.sidebar.image(logo, use_column_width=True)
+
+# Creazione delle colonne per il titolo e il logo
+title_col, sidebar_col = st.columns([3, 1])
+
+# Posiziona l'immagine nella seconda colonna
+sidebar_col.image(logo, use_column_width=False, width=250)
+
+# Posiziona il titolo e il sottotitolo nella prima colonna
+title_col.title("Benvenut* al FantaJesaper")
+title_col.subheader("Inserisci l'email per cominciare")
+
+
+
 
 is_aut = False
+
 
 
  # Campo di input per l'email nella sidebar
@@ -119,6 +130,8 @@ if email and  email in  existing_data.values:
     st.success(f"Benvenut {email}")
     is_aut = True
     st.title("FantaJesaper")
+    st.markdown(" <h4> Hai a disposizione 25 crediti per comporre la tua squadra. <h4>", unsafe_allow_html=True)
+
     giocatori_selezionati = []
     crediti_totali = 0
     numeri = 0 
@@ -266,6 +279,8 @@ if email and  email in  existing_data.values:
 
     st.markdown("<h2>Il tuo Team:</h2>", unsafe_allow_html=True)
 
+    st.markdown(  "Quando hai finito di selezionare i giocatori clicca sul bottone 'Aggiorna il team' per salvare la tua squadra. ", unsafe_allow_html=True)
+
     for giocatore in giocatori_selezionati:
             st.write(f"- {giocatore['nome']}")
 
@@ -289,8 +304,9 @@ if email and  email in  existing_data.values:
             else:
                 st.warning("I giocatori selezionati hanno un costo maggiore di quanto puoi spendere")
             
-else:
-            st.warning("Email non valida, inserire un'email presente nel foglio Google Sheet") 
+
+elif email and email not in  existing_data.values:
+    st.warning("Inserire un'email valida, il dominio deve essere @jesap.it") 
          
 
 

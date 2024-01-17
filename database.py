@@ -125,12 +125,62 @@ if email and  email in  existing_data.values:
         
     widget_counter = 0
 
-    while crediti_totali <= 25:
+    giocatori_disponibili = [g for g in giocatori if g["crediti"] <= (25 - crediti_totali)]
+    # Primo giocatore
+    giocatore_scelto_1 = st.selectbox("Seleziona un giocatore:", [g["nome"] for g in giocatori_disponibili], key=f"giocatore_select_{widget_counter}", index=None)
+
+    for giocatore in giocatori_disponibili:
+        if giocatore["nome"] == giocatore_scelto_1:
+            crediti_totali += giocatore["crediti"]
+            giocatori_selezionati.append(giocatore)
+            giocatori.remove(giocatore)
+
+            # Display the player's image
+            player_photo_path = f"photos/{giocatore['foto']}" 
+            if(giocatore['foto'] in os.listdir("photos")):
+                st.image(player_photo_path, caption=giocatore["nome"], use_column_width=False, width=200)
+            
+            break
+
+    st.write(f"Hai ancora {25-crediti_totali} Crediti ")
+
+    if (25-crediti_totali) > 4 and giocatore_scelto_1:
+        numeri += 1
+
+        #Aumento 
+        widget_counter += 1
+
+        giocatori_disponibili = [g for g in giocatori if g["crediti"] <= (25 - crediti_totali)]
+        # Secondo giocatore
+        giocatore_scelto_2 = st.selectbox("Seleziona un giocatore:", [g["nome"] for g in giocatori_disponibili], key=f"giocatore_select_{widget_counter}", index=None)
+
+        for giocatore in giocatori_disponibili:
+            if giocatore["nome"] == giocatore_scelto_2:
+                crediti_totali += giocatore["crediti"]
+                giocatori_selezionati.append(giocatore)
+                giocatori.remove(giocatore)
+
+                # Display the player's image
+                player_photo_path = f"photos/{giocatore['foto']}" 
+                if(giocatore['foto'] in os.listdir("photos")):
+                    st.image(player_photo_path, caption=giocatore["nome"], use_column_width=False, width=200)
+                
+                break
+
+        st.write(f"Hai ancora {25-crediti_totali} Crediti ")
+
+        if (25-crediti_totali) > 4 and giocatore_scelto_2:
+            numeri += 1
+
+            #Aumento 
+            widget_counter += 1
+
             giocatori_disponibili = [g for g in giocatori if g["crediti"] <= (25 - crediti_totali)]
-            giocatore_scelto = st.selectbox("Seleziona un giocatore:", [g["nome"] for g in giocatori_disponibili], key=f"giocatore_select_{widget_counter}", index=None)
+            # Terzo giocatore
+            giocatore_scelto_3 = st.selectbox("Seleziona un giocatore:", [g["nome"] for g in giocatori_disponibili], key=f"giocatore_select_{widget_counter}", index=None)
 
             for giocatore in giocatori_disponibili:
-                if giocatore["nome"] == giocatore_scelto:
+                if giocatore["nome"] == giocatore_scelto_3:
                     crediti_totali += giocatore["crediti"]
                     giocatori_selezionati.append(giocatore)
                     giocatori.remove(giocatore)
@@ -142,19 +192,68 @@ if email and  email in  existing_data.values:
                     
                     break
 
+
             st.write(f"Hai ancora {25-crediti_totali} Crediti ")
 
-            # Creazione di una variabile che cambia ogni volta che il checkbox viene premuto
-            continua_selezione = st.checkbox("Vuoi selezionare un altro giocatore?", key=f"continua_selezione_{widget_counter + 1}")
-
-            if continua_selezione:
+            if (25-crediti_totali) > 4 and giocatore_scelto_3:
                 numeri += 1
 
-            #Aumento 
-            widget_counter += 1
+                #Aumento 
+                widget_counter += 1
 
-            if not continua_selezione:
-                break
+                giocatori_disponibili = [g for g in giocatori if g["crediti"] <= (25 - crediti_totali)]
+                # Quarto giocatore
+                giocatore_scelto_4 = st.selectbox("Seleziona un giocatore:", [g["nome"] for g in giocatori_disponibili], key=f"giocatore_select_{widget_counter}", index=None)
+
+                for giocatore in giocatori_disponibili:
+                    if giocatore["nome"] == giocatore_scelto_4:
+                        crediti_totali += giocatore["crediti"]
+                        giocatori_selezionati.append(giocatore)
+                        giocatori.remove(giocatore)
+
+                        # Display the player's image
+                        player_photo_path = f"photos/{giocatore['foto']}" 
+                        if(giocatore['foto'] in os.listdir("photos")):
+                            st.image(player_photo_path, caption=giocatore["nome"], use_column_width=False, width=200)
+                        
+                        break
+
+                st.write(f"Hai ancora {25-crediti_totali} Crediti ")
+
+                if (25-crediti_totali) > 4 and giocatore_scelto_4:
+                    numeri += 1
+
+                    #Aumento 
+                    widget_counter += 1
+
+                    giocatori_disponibili = [g for g in giocatori if g["crediti"] <= (25 - crediti_totali)]
+                    # Quinto giocatore
+                    giocatore_scelto_5 = st.selectbox("Seleziona un giocatore:", [g["nome"] for g in giocatori_disponibili], key=f"giocatore_select_{widget_counter}", index=None)
+
+                    for giocatore in giocatori_disponibili:
+                        if giocatore["nome"] == giocatore_scelto_5:
+                            crediti_totali += giocatore["crediti"]
+                            giocatori_selezionati.append(giocatore)
+                            giocatori.remove(giocatore)
+
+                            # Display the player's image
+                            player_photo_path = f"photos/{giocatore['foto']}" 
+                            if(giocatore['foto'] in os.listdir("photos")):
+                                st.image(player_photo_path, caption=giocatore["nome"], use_column_width=False, width=200)
+                            
+                            break
+
+                    st.write(f"Hai ancora {25-crediti_totali} Crediti ")
+
+                    if crediti_totali > 4:
+                        numeri += 1
+
+                    #Aumento 
+                    widget_counter += 1
+
+
+
+
 
     st.markdown("<h2>Il tuo Team:</h2>", unsafe_allow_html=True)
 
@@ -184,17 +283,6 @@ if email and  email in  existing_data.values:
 else:
             st.warning("Email non valida, inserire un'email presente nel foglio Google Sheet") 
          
-
-    
-
-
-
-
-
-
-#agg nome su 
-
-
 
 
     

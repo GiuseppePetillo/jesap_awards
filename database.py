@@ -144,7 +144,10 @@ if email and  email in  existing_data.values:
 
     st.write(f"Hai ancora {25-crediti_totali} Crediti ")
 
-    if (25-crediti_totali) > 4 and giocatore_scelto_1:
+    if(25-crediti_totali) < 5:
+         st.warning("Non hai abbastanza crediti per selezionare altri giocatori")
+
+    elif (25-crediti_totali) > 4 and giocatore_scelto_1:
         numeri += 1
 
         #Aumento 
@@ -169,7 +172,9 @@ if email and  email in  existing_data.values:
 
         st.write(f"Hai ancora {25-crediti_totali} Crediti ")
 
-        if (25-crediti_totali) > 4 and giocatore_scelto_2:
+        if(25-crediti_totali) < 5:
+            st.warning("Non hai abbastanza crediti per selezionare altri giocatori")
+        elif (25-crediti_totali) > 4 and giocatore_scelto_2:
             numeri += 1
 
             #Aumento 
@@ -195,7 +200,9 @@ if email and  email in  existing_data.values:
 
             st.write(f"Hai ancora {25-crediti_totali} Crediti ")
 
-            if (25-crediti_totali) > 4 and giocatore_scelto_3:
+            if(25-crediti_totali) < 5:
+                st.warning("Non hai abbastanza crediti per selezionare altri giocatori")
+            elif (25-crediti_totali) > 4 and giocatore_scelto_3:
                 numeri += 1
 
                 #Aumento 
@@ -220,7 +227,9 @@ if email and  email in  existing_data.values:
 
                 st.write(f"Hai ancora {25-crediti_totali} Crediti ")
 
-                if (25-crediti_totali) > 4 and giocatore_scelto_4:
+                if(25-crediti_totali) < 5:
+                    st.warning("Non hai abbastanza crediti per selezionare altri giocatori")
+                elif (25-crediti_totali) > 4 and giocatore_scelto_4:
                     numeri += 1
 
                     #Aumento 

@@ -131,7 +131,7 @@ if email and  email.lower() in  existing_data.values:
     st.success(f"Benvenut {email}")
     is_aut = True
     st.title("FantaJesaper")
-    st.markdown(f" <h4> Hai a disposizione{25-crediti_totali} per comporre la tua squadra. <h4>", unsafe_allow_html=True)
+    st.markdown(f" <h4> Hai a disposizione {25-crediti_totali} per comporre la tua squadra. <h4>", unsafe_allow_html=True)
 
     giocatori_selezionati = []
     
@@ -309,3 +309,4 @@ if email and  email.lower() in  existing_data.values:
 elif email and email not in  existing_data.values:
     st.warning("Inserire un'email valida, il dominio deve essere @jesap.it") 
          
+st.image("pango.jpg")

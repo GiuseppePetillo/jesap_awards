@@ -126,7 +126,7 @@ email = st.text_input("Email:")
 
 # Bottone di accesso nella sidebar
 
-if email and  email in  existing_data.values:
+if email and  email.lower() in  existing_data.values:
     st.success(f"Benvenut {email}")
     is_aut = True
     st.title("FantaJesaper")

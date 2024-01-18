@@ -131,6 +131,7 @@ if email and  email.lower() in  existing_data.values:
     st.success(f"Benvenut {email}")
     is_aut = True
     st.title("FantaJesaper")
+    
     st.markdown(f" <h4> Hai a disposizione {25-crediti_totali} per comporre la tua squadra. <h4>", unsafe_allow_html=True)
 
     giocatori_selezionati = []
@@ -181,7 +182,7 @@ if email and  email.lower() in  existing_data.values:
                 player_photo_path = f"photos/{giocatore['foto']}" 
                 if(giocatore['foto'] in os.listdir("photos")):
                     st.image(player_photo_path, caption=giocatore["nome"], use_column_width=False, width=200)
-                
+                    st.write(f"Hai ancora {25-crediti_totali} Crediti ")
                 break
 
         st.write(f"Hai ancora {25-crediti_totali} Crediti ")

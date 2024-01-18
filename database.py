@@ -127,13 +127,14 @@ email = st.text_input("Email:")
 # Bottone di accesso nella sidebar
 
 if email and  email.lower() in  existing_data.values:
+    crediti_totali = 0
     st.success(f"Benvenut {email}")
     is_aut = True
     st.title("FantaJesaper")
-    st.markdown(" <h4> Hai a disposizione 25 crediti per comporre la tua squadra. <h4>", unsafe_allow_html=True)
+    st.markdown(" <h4> Hai a disposizione" f{25-crediti_totali}" per comporre la tua squadra. <h4>", unsafe_allow_html=True)
 
     giocatori_selezionati = []
-    crediti_totali = 0
+    
     numeri = 0 
         
     widget_counter = 0
